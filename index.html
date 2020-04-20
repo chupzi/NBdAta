@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="main">
+        <div style="margin-left: 425px; margin-top: 45px">
+         <h1 id="title">NBdAta</h1> 
+         </div>
+         <div style="margin-left: 235px; margin-top: 15px">
+            <h4>Nikhil Deo, Matthew Levine, Alan Lu, Almaze Lema</h4>
+         </div>
+        <div style="margin-left: 160px; margin-top: 35px">
+            <svg width="670" id ="svg" height="470">
+            </svg>
+        </div>
+        <div  id="toggle" style="margin-left: 160px; margin-top: 10px;">
+            <label for="categorySelect">Year:</label>
+            <select style="width: auto;" class="custom-select large" id="scaleSelect" onchange="onYearChanged()">
+                <option selected value=0>2019-2020</option>
+                <option value=1>2018-2019</option>
+                <option value=2>2017-2018</option>
+                <option value=3>2016-2017</option>
+                <option value=4>2015-2016</option>
+                <option value=5>2014-2015</option>
+                <option value=6>2013-2014</option>
+                <option value=7>2012-2013</option>
+                <option value=8>2011-2012</option>
+                <option value=9>2010-2011</option>
+                <option value=10>2009-2010</option>
+                <option value=11>2008-2009</option>
+                <option value=12>2007-2008</option>
+                <option value=13>2006-2007</option>
+                <option value=14>2005-2006</option>
+                <option value=15>2004-2005</option>
+                <option value=16>2003-2004</option>
+                <option value=17>2002-2003</option>
+                <option value=18>2001-2002</option>
+                <option value=19>2000-2001</option>
+                <option value=20>1999-2000</option>
+                <option value=21>1998-1999</option>
+                <option value=22>1997-1998</option>
+                <option value=23>1996-1997</option>
+                <option value=24>1995-1996</option>
+                <option value=25>1994-1995</option>
+                <option value=26>1993-1994</option>
+                <option value=27>1992-1993</option>
+                <option value=28>1991-1992</option>
+                <option value=29>1990-1991</option>
+                <option value=30>1989-1990</option>
+                <option value=31>1988-1989</option>
+                <option value=32>1987-1988</option>
+                <option value=33>1986-1987</option>
+                <option value=34>1985-1986</option>
+                <option value=35>1984-1985</option>
+                <option value=36>1983-1984</option>
+                <option value=37>1982-1983</option>
+                <option value=38>1981-1982</option>
+                <option value=39>1980-1981</option>
+                <option value=40>1979-1980</option>
+
+            </select>
+            <!-- <div class="slidercontainer"> -->
+                <!-- <label for="year">Year: <span id="yearSliderValue"></span></label> -->
+            <div id="drag">
+                <label for="happy" class="pull-left">1979-89</label>
+                <input type="range" min="1979" max="2019" value="2019" class="slider" id="yearRange" style="display: inline-block;">
+                <label for="" class="pull-right">2019-20</label>
+            </div>
+                
+            <!-- </div> -->
+        </div>
+        <div id="stats">
+            <p><b>3-Pointers Attempted: </b><span id="3PAStat"></span></p>
+            <p><b>3-Pointers Made:</b> <span id="3PMStat"></span></p>
+            <p><b>Total Shots Attempted: </b><span id="FGAStat"></span></p>
+            <p><b>3PT Attempts to Total Attempts Ratio: </b><span id="3PA_FGAStat"></span></p>
+        </div>
+        <div id="legend">
+            <svg width="250" height="200" id="legendSVG"></svg>
+            
+        </div>
+        <div id = "explanation">
+            <p>The following graph was desgined to show the drastic increase in 3 pointers taken in the NBA since it was added to the game in the 1979-1980 season.
+            Data used to create this graph came from <a href="https://www.basketball-reference.com/">basketball-reference.</a> This graph displays NBA league per game
+            data. The statistics were scalled by a factor of 600 in order to show the ratios of such statisitcs.
+            <p>
+        </div>
+
+    </div>
+    <script src="grid.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</body>
+
+</html>

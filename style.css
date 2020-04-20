@@ -1,0 +1,59 @@
+.slider {
+    -webkit-appearance: none;
+    width: 25%;
+    height: 15px;
+    border-radius: 5px;  
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #868585;
+    cursor: pointer;
+  }
+
+  #main {
+    padding-left: 125;
+  }
+
+  #drag {
+    padding-left: 300px;
+    margin-top: -32px;
+  }
+
+  #stats {
+    margin-left: -100px;
+    margin-top: -400px;
+    width: 240px;
+    border-style: ridge;
+    border-color: black;
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  #svg {
+    border-style: ridge;
+    border-color: black;
+  }
+  #legend {
+    margin-left: 870;
+    margin-top: -200;
+  }
+  #legendSVG {
+    border-style: groove;
+    border-color: black;
+  }
+
+  #explanation {
+    width: 700;
+    margin-top: 250;
+    margin-left: 160;
+  }
