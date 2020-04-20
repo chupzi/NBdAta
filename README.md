@@ -3,3 +3,5 @@
 #To run the program, open the folder in your terminal and run this command: python -m SimpleHTTPServer 8080
 #This is how you can run it locally, on localhost:8080.
 #The github page to use the program is: https://chupzi.github.io/NBdAta/
+
+#This project was created by Nikhil Deo, Matthew Levine, Alan Lu, Almaze Lema. We are all students at Georgia Tech.
