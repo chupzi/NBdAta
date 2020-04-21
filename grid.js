@@ -1,16 +1,14 @@
-//Function to listen for changes to the drop-down menu
+//Nikhil Deo, Almaze Lema, Mathew Levine, Alan Lu
+
 function onYearChanged() {
     var select = d3.select('#scaleSelect').node();
     // Get current value of select element, save to global currentYear
     currentYear = select.options[select.selectedIndex].value
-    // Get corresponding year value to set the slider to the same year
     slider.value = sliderHelper[currentYear];
     // Update chart
     updateChart();
 }
 
-//Gets data for the year to be displayed and calculates the necesaary metrics
-//Generates labels for the text statistics displayed to the left of the graph
 function updateChart(){
     console.log(dataset[currentYear]["Season"]);
     
@@ -55,7 +53,6 @@ function updateChart(){
     updateGraph(false);
 }
 
-//Create the svg element on which the graph is displayed
 var svg = d3.select('svg');
 var xScale;
 
@@ -63,20 +60,21 @@ var xScale;
 var svgWidth = +svg.attr('width');
 var svgHeight = +svg.attr('height');
 
-//Define padding for the graph
 var padding = {t: 40, r: 40, b: 40, l: 40};
 
 // Compute chart dimensions
 var chartWidth = svgWidth - padding.l - padding.r;
 var chartHeight = svgHeight - padding.t - padding.b;
 
-
 var grid = svg.append('g')
     .attr('transform', 'translate('+[padding.l, padding.t]+')')
     .attr("class", "grid");
 
+
+//This is the graph legend, on right side of screen.
 var legend = d3.select("#legendSVG");
 
+//This adds the green circle representing 3s made to the legend
 legend.append('circle')
     .attr("cx", 25)
     .attr("cy", 20)
@@ -84,6 +82,7 @@ legend.append('circle')
     .style("fill", "#44b32e")
     .style("stroke", "#000000");
 
+//This adds the red circle representing 3s missed to the legend
 legend.append('circle')
     .attr("cx", 25)
     .attr("cy", 70)
@@ -91,6 +90,7 @@ legend.append('circle')
     .style("fill", "#e3372b")
     .style("stroke", "#000000");
 
+//This adds the grey circle representing total 2s taken to the legend
 legend.append('circle')
     .attr("cx", 25)
     .attr("cy", 120)
@@ -98,6 +98,7 @@ legend.append('circle')
     .style("fill", "#575a5e")
     .style("stroke", "#000000");
 
+//This adds the green circle at the end of the legend 
 legend.append('circle')
     .attr("cx", 25)
     .attr("cy", 170)
@@ -105,6 +106,8 @@ legend.append('circle')
     .style("fill", "#44b32e")
     .style("stroke", "#000000");
 
+
+//This adds the red circle at the end of the legend
 legend.append('circle')
     .attr("cx", 55)
     .attr("cy", 170)
@@ -112,6 +115,7 @@ legend.append('circle')
     .style("fill", "#e3372b")
     .style("stroke", "#000000");
 
+//This is text for the first legend entry (3s made)
 legend.append("text")
     .attr("x", 40)
     .attr("y", 21)
@@ -119,6 +123,7 @@ legend.append("text")
     .style("font-size", "15px")
     .attr("alignment-baseline","middle")
 
+//This is text for the second legend entry (3s missed)
 legend.append("text")
     .attr("x", 40)
     .attr("y", 71)
@@ -126,20 +131,23 @@ legend.append("text")
     .style("font-size", "15px")
     .attr("alignment-baseline","middle")
 
+//This is text for the third legend entry (total 2s taken)
 legend.append("text")
     .attr("x", 40)
     .attr("y", 121)
     .text("Total 2 pointers taken")
     .style("font-size", "15px")
     .attr("alignment-baseline","middle")
-    
+
+//This is the plus sign for the last legend entry
 legend.append("text")
     .attr("x", 35)
     .attr("y", 170)
     .text("+")
     .style("font-size", "15px")
     .attr("alignment-baseline","middle")
-    
+
+//The text for the last legend entry with (green circle) + (red circle) = total 3s taken
 legend.append("text")
     .attr("x", 70)
     .attr("y", 170)
@@ -147,9 +155,12 @@ legend.append("text")
     .style("font-size", "15px")
     .attr("alignment-baseline","middle")
 
-//Draws the graph and updates it as the years change
+
 function updateGraph(first) {
-    //Gets data to bind to circles such that the pixel graph can be generated
+    // if (!first) {
+    //     grid.selectAll(".row").remove();
+    // }
+
     var gridDat = gridData();
 
     var row = grid.selectAll(".row")
@@ -161,7 +172,6 @@ function updateGraph(first) {
     var circles = row.selectAll(".circle")
         .data(function(d) { return d; });
     
-    //Define 
     circles.enter().append("circle")
         .attr("class", "circle")
         .attr("cx", function(d) { return d.x; })
