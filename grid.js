@@ -1,17 +1,30 @@
 //Nikhil Deo, Almaze Lema, Mathew Levine, Alan Lu
 
+//Function to listen for changes to the drop-down menu
 function onYearChanged() {
     var select = d3.select('#scaleSelect').node();
     // Get current value of select element, save to global currentYear
     currentYear = select.options[select.selectedIndex].value
+    // Get corresponding year value to set the slider to the same year
     slider.value = sliderHelper[currentYear];
     // Update chart
     updateChart();
 }
 
-function updateChart(){
-    console.log(dataset[currentYear]["Season"]);
-    
+//Gets the slider element from the HTML
+var slider = document.getElementById("yearRange");
+
+//Handles changes to the slider by setting the new global currentYear value, sets the dropdown menu to match it, and then makes the call to update the chart
+slider.oninput = function() {
+    currentYear = 2019 - slider.value;
+    select = d3.select('#scaleSelect').node();
+    select.value = currentYear;
+    updateChart()
+}
+
+//Gets data for the year to be displayed and calculates the necesaary metrics
+//Generates labels for the text statistics displayed to the left of the graph
+function updateChart(){    
     //data[0] is 2019-2020 season. data[40] is that last (1979-1980).
 
     //3s made
@@ -50,9 +63,10 @@ function updateChart(){
     document.getElementById("FGAStat").innerHTML = totalShots;
     document.getElementById("3PA_FGAStat").innerHTML = threeAttemptsToShotAttemptsRatio.toFixed(3);
 
-    updateGraph(false);
+    updateGraph();
 }
 
+//Create the svg element on which the graph is displayed
 var svg = d3.select('svg');
 var xScale;
 
@@ -66,6 +80,7 @@ var padding = {t: 40, r: 40, b: 40, l: 40};
 var chartWidth = svgWidth - padding.l - padding.r;
 var chartHeight = svgHeight - padding.t - padding.b;
 
+//Define padding for the graph
 var grid = svg.append('g')
     .attr('transform', 'translate('+[padding.l, padding.t]+')')
     .attr("class", "grid");
@@ -155,20 +170,20 @@ legend.append("text")
     .style("font-size", "15px")
     .attr("alignment-baseline","middle")
 
-
-function updateGraph(first) {
-    // if (!first) {
-    //     grid.selectAll(".row").remove();
-    // }
-
+//Draws the graph and updates it as the years change
+function updateGraph() {
+    
+    //Gets data to bind to circles such that the pixel graph can be generated
     var gridDat = gridData();
 
+    //Creates row elements within which the cirlces reside
     var row = grid.selectAll(".row")
         .data(gridDat);
     
     row.enter().append("g")
         .attr("class", "row");
 
+    //Creates the circle elements within the rows
     var circles = row.selectAll(".circle")
         .data(function(d) { return d; });
     
@@ -196,7 +211,8 @@ function updateGraph(first) {
         })
         .style("stroke", "#000000");
         // .transition().duration(750);
-
+    
+    //This handles coloring updates as the year changes
     circles.style("fill", function(d) {
         if (ThreeMadeBlocks > 0) {
             ThreeMadeBlocks--;
@@ -214,8 +230,8 @@ function updateGraph(first) {
     })
 }
 
+//This function serves to create the data that will help define the rows and circles such that the pixel graph appears.
 function gridData() {
-    console.log("test");
     var data = new Array();
     var xpos = 10; //starting xpos and ypos at 1 so the stroke will show when we make the grid below
     var ypos = chartHeight;
@@ -264,24 +280,18 @@ d3.csv("NBData.csv", function(error, data) {
     currentYear = 0
 
     chartScales = {x: '1'};
+
+    //Since the slider is on a different range than the dropdown menu indices, the folloing helper values help keep track of what year is currently being looked at in terms of both the slider and the dropdown
     sliderHelper = new Array();
     currentYearHelper = 0;
+    
+    //Populates the sliderHelper array with values that correspond to the sliders' range
     for (var i = 0; i < dataset.length; i++) {
         str = dataset[i]["Season"]
         sliderHelper.push(str.substring(0,str.length-3));
     }
+    
+    //This represents the first calls to updateChart and updateGraph which will then create the inital graph
     updateChart();
-    updateGraph(true);
+    updateGraph();
 });
-
-var slider = document.getElementById("yearRange");
-//var output = document.getElementById("yearSliderValue");
-//output.innerHTML = slider.value;
-
-slider.oninput = function() {
-  //output.innerHTML = this.value;
-  currentYear = 2019 - slider.value;
-  select = d3.select('#scaleSelect').node();
-  select.value = currentYear;
-  updateChart()
-}
